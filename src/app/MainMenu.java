@@ -12,8 +12,6 @@ import java.util.Scanner;
  */
 public class MainMenu {
 
-  
-
     /**
      * @param args the command line arguments
      */
@@ -46,21 +44,37 @@ public class MainMenu {
                         String resultado = encriptar(mensaje, clave);
                         System.out.println("A escondido el mensaje de las tropas imperiales. Su mensajes en criptado es:");
                         System.out.println(resultado);
-                        
-                        
 
-                    }else if (opc == 2){
+                    } else if (opc == 2) {
                         String resultado = desencriptar(mensaje, clave);
-                        
+                        System.out.println("Usando la fuerza, pudo abrir el holocron y desencriptar el mensaje. felicidades eres un crack y aqui esta tu mensaje desencriptado :3 : ");
+                        System.out.println(resultado);
+
                     }
 
                     break;
                 case 2:
-                    System.out.println("Adios");
+
+                    int tamaño = 0;
+
+                    System.out.println("");
+                    System.out.print("Ingrese las dimensiones del nuevo Tie Fighter(Numero mayor o igual a 5): ");
+                    tamaño = leer.nextInt();
+                    leer.nextLine();
+
+                    ejercicio2(tamaño);
 
                     break;
+
                 case 3:
-                    System.out.println("Buenas");
+                    System.out.println("Ingrese la cadena escondida: ");
+                    String base = leer.nextLine();
+                    System.out.println("Ingrese cadena escondida: ");
+                    String cadEscondida = leer.nextLine();
+                    System.out.println("Ingrese la cadena de busqueda: ");
+                    String cadBusqued = leer.nextLine();
+                    System.out.println(":((((( grande dariel");
+                    
 
                     break;
                 case 0:
@@ -85,11 +99,11 @@ public class MainMenu {
             char letra = mensaje.charAt(i);
             if (letra >= 'a' || letra <= 'z') {
 
-                int shift = clave.charAt(i % clave.length()) - 'a';
+                int poscambiar = clave.charAt(i % clave.length()) - 'a';
 
                 if (i % 2 == 0) {
 
-                    int cambiarLetra = letra + shift;
+                    int cambiarLetra = letra + poscambiar;
                     if (cambiarLetra > 'z') {
                         cambiarLetra -= 26;
 
@@ -97,7 +111,7 @@ public class MainMenu {
                     resultado += (char) cambiarLetra;
 
                 } else {
-                    int cambiarLetra = letra - shift;
+                    int cambiarLetra = letra - poscambiar;
                     if (cambiarLetra < 'a') {
                         cambiarLetra += 26;
 
@@ -123,29 +137,53 @@ public class MainMenu {
 
         for (int i = 0; i < mensaje.length(); i++) {
             char letra = mensaje.charAt(i);
-            if (letra >= 'a' || letra <= 'z') {
 
-                int cambiarPos = clave.charAt(i % clave.length() - 'a');
+            if (letra >= 'a' && letra <= 'z') {
+                int cambiarPos = clave.charAt(i % clave.length()) - 'a';
 
                 if (i % 2 == 0) {
-
                     int cambiarLetra = letra - cambiarPos;
-                    if (cambiarLetra > 'a') {
-                        cambiarLetra -= 25;
-
+                    if (cambiarLetra < 'a') {
+                        cambiarLetra += 26;
                     }
                     resultado += (char) cambiarLetra;
-
+                } else {
+                    int cambiarLetra = letra + cambiarPos;
+                    if (cambiarLetra > 'z') {
+                        cambiarLetra -= 26;
+                    }
+                    resultado += (char) cambiarLetra;
                 }
-
             } else {
                 resultado += letra;
             }
-
         }
-
         return resultado;
-
     }
 
+    public static void ejercicio2(int numero) {
+        System.out.println("Tie fighter generado <: ) :");
+        int mid = numero / 2;
+
+        for (int i = 0; i < numero; i++) {
+            for (int j = 0; j < numero; j++) {
+                char ch = ' ';
+
+                if (j == 0 || j == numero - 1) {
+                    ch = '|';
+                } else if (i >= mid - 1 && i <= mid + 1 && j >= mid - 1 && j <= mid + 1) {
+                    ch = '*';
+                } else if (i == mid) {
+                    ch = '-';
+                }
+
+                System.out.print(ch);
+
+                if (j < numero - 1) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
 }
